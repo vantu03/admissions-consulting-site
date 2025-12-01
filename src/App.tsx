@@ -24,11 +24,11 @@ function App() {
   ];
 
   return (
-    <>
+    <div className="">
       <Header navItems={navItems} />
 
       <section ref={homeRef}>
-        <Home statistics={statistics} />
+        <Home statistics={statistics}  navItems={navItems} />
       </section>
 
       <section ref={resultsRef}>
@@ -42,7 +42,7 @@ function App() {
       <section ref={applyRef}>
         <Footer />
       </section>
-    </>
+    </div>
   )
 }
 
