@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Modal from './Modal.tsx'
 
 import logoHeader from '../static/logo.png'
@@ -6,9 +6,11 @@ import logoHeader from '../static/logo.png'
 import {LuUsers} from "react-icons/lu";
 import {LuClock, LuMapPin} from "react-icons/lu";
 import {MdOutlineMail} from "react-icons/md";
-import {statistics, formatNumber} from '../types/Statistic';
-import { termsOfService, privacyPolicy } from '../static/data.tsx';
+import {formatNumber} from '../types/Statistic';
 import type { ModalRef } from './Modal.tsx'
+import { getPrivacyPolicy, getTermsOfService, getStatistics } from '../services/ApiService.tsx';
+import type{ Statistic } from '../types/Statistic.tsx'
+import { IconMap } from '../services/IconMap.tsx';
 
 function Footer(
     {navItems}:{navItems: { name: string; handleScroll: () => void }[]}
@@ -18,6 +20,19 @@ function Footer(
     const modalTermsOfServiceRef = useRef<ModalRef>(null);
     const modalPrivacyPolicyRef = useRef<ModalRef>(null);
 
+    const [privacy, setPrivacy] = useState('');
+    const [terms, setTerms] = useState('');
+
+    const [statistics, setStatistics] = useState<Statistic[]>([]);
+
+    useEffect(()=> {
+        getStatistics().then(setStatistics);
+    }, []);
+
+    useEffect(() => {
+        getTermsOfService().then(setTerms);
+        getPrivacyPolicy().then(setPrivacy);
+    }, []);
 
     return (
         <footer className="bg-[#1d2027] text-white">
@@ -77,15 +92,27 @@ function Footer(
 
                         <div className="py-4">
                             <div className="gap-4 mt-4">
-                                {statistics.map((item) => (
-                                    <a key={item.name} href={item.href} target="_blank" className={"flex items-center gap-4 py-2 hover:text-[" + item.color + "] cursor-pointer"}>
-                                        <div className="rounded-xl p-2 bg-[#29293f]"><item.icon className="w-6 h-6" /></div>
-                                        <div className="flex flex-col">
-                                            <span className="text-lg">{item.name}</span>
-                                            <span className="text-stone-400 text-sm">{formatNumber(item.value)} followers</span>
-                                        </div>
-                                    </a>
-                                ))}
+                                {statistics.map((item) => {
+                                    const Icon = IconMap[item.icon];
+
+                                    return (
+                                        <a key={item.name} href={item.href} target="_blank"
+                                        className={"flex items-center gap-4 py-2 hover:text-[" + item.color + "] cursor-pointer"}>
+                                            
+                                            <div className="rounded-xl p-2 bg-[#29293f]">
+                                                <Icon className="w-6 h-6" />
+                                            </div>
+                                            
+                                            <div className="flex flex-col">
+                                                <span className="text-lg">{item.name}</span>
+                                                <span className="text-stone-400 text-sm">
+                                                    {formatNumber(item.value)} followers
+                                                </span>
+                                            </div>
+                                        </a>
+                                    );
+                                })}
+
                             </div>
                         </div>
                         <div className="bg-[#29293f] p-4 rounded-xl border border-amber-300/30">
@@ -105,11 +132,11 @@ function Footer(
                 </div>
                 
                 <Modal ref={modalPrivacyPolicyRef} title="Privacy Policy">
-                    <div dangerouslySetInnerHTML={{ __html: privacyPolicy }} />
+                    <div dangerouslySetInnerHTML={{ __html: privacy }} />
                 </Modal>
                 
                 <Modal ref={modalTermsOfServiceRef} title="Terms of Service">
-                    <div dangerouslySetInnerHTML={{ __html: termsOfService }} />
+                    <div dangerouslySetInnerHTML={{ __html: terms }} />
                 </Modal>
             </div>
         </footer>

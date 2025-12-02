@@ -2,6 +2,7 @@ import logoHeader from '../static/logo.png'
 import { useState } from 'react'
 
 import type { NavItem } from '../types/Nav.tsx'
+import {  LuUsers } from "react-icons/lu";
 
 function Header({navItems}:{navItems:NavItem[]}) {
     const [open, setOpen] = useState(false);
@@ -31,7 +32,7 @@ function Header({navItems}:{navItems:NavItem[]}) {
 
 
                     <button
-                        className="md:hidden hover:text-orange-400 transition-colors"
+                        className="lg:hidden hover:text-orange-400 transition-colors"
                         onClick={handleOpen}
                     >
                         {open ?  (
@@ -44,19 +45,23 @@ function Header({navItems}:{navItems:NavItem[]}) {
                             </svg>
                         )}
                     </button>
-                    {!open && (
-                        <ul className="hidden md:flex items-center gap-6">
-                            {navItems.map((item) => (
-                                <li key={item.name}><button onClick={() => handleScrollToRef(item.handleScroll)} className="hover:text-orange-400">{item.name}</button></li>
-                            ))}
-                        </ul>
-                    )}
+                    <ul className="hidden lg:flex items-center gap-6">
+                        {navItems.map((item) => (
+                            <li key={item.name}><button onClick={() => handleScrollToRef(item.handleScroll)} className="hover:text-orange-400">{item.name}</button></li>
+                        ))}
+                    </ul>
+                    <div className="rounded-full font-semibold inline-flex items-center gap-2 p-2 bg-amber-100 text-sm">
+                        <LuUsers />
+                        <span>
+                            Trusted by 200K+ Students &amp; Parents
+                        </span>
+                    </div>
                 </nav>
                     
 
                     {open && (
-                        <div className="bg-white p-4">
-                            <ul className="flex flex-col gap-4 mt-4 md:hidden">
+                        <div className="bg-white p-4 lg:hidden">
+                            <ul className="flex flex-col gap-4 mt-4 ">
                                 {navItems.map((item) => (
                                     <li key={item.name}><button onClick={() => handleScrollToRef(item.handleScroll)} className="hover:text-orange-400 ">{item.name}</button></li>
                                 ))}

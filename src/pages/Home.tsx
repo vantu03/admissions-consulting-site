@@ -5,10 +5,19 @@ import { FaRegStar } from "react-icons/fa6";
 import { LuTrophy, LuUsers } from "react-icons/lu";
 
 
-import { statistics, formatNumber } from '../types/Statistic.tsx'
+import { formatNumber } from '../types/Statistic.tsx'
+
+import type{ Statistic } from '../types/Statistic.tsx'
+import {getStatistics} from  '../services/ApiService.tsx'
+import { useEffect, useState } from 'react';
 
 function Home({navItems}:{navItems: { name: string; handleScroll: () => void }[]}) {
 
+    const [statistics, setStatistics] = useState<Statistic[]>([]);
+
+    useEffect(()=> {
+        getStatistics().then(setStatistics);
+    }, []);
 
     return (
     <article
