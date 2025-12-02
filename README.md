@@ -1,73 +1,136 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Quasar & Co. — Admissions Consulting Website
 
-Currently, two official plugins are available:
+This project is a frontend website built to showcase an admissions consulting service, including a landing page, results section, testimonial layout, and a fully functional application form.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The design focuses on a clean, high-end aesthetic similar to modern consulting and education agencies.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Screenshots
 
-## Expanding the ESLint configuration
+### Homepage
+![Homepage](src/static/assets/home.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Application Form
+![Application Form](src/static/assets/apply.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Footer Section
+![Footer](src/static/assets/footer.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Features
+
+### Landing Page
+- Hero banner with headline, founder image, and social statistics  
+- Highlight section showing credibility and achievements  
+- Call-to-action button leading to the application page  
+
+### Application Form
+- Role selection (Parent / Student)  
+- Input validation  
+- Submit button with loading/animation style  
+- Custom modal to preview submitted data  
+
+### UI/UX
+- Fully responsive layout  
+- TailwindCSS styling  
+- Smooth spacing, container layout, and typography  
+- Clean dark theme sectioning for readability  
+
+### Modal Component
+- Opens using ref  
+- Supports clicking outside to close  
+- 80vh height limit with internal scroll  
+- Accepts HTML content or React nodes  
+
+---
+
+## Technologies Used
+
+- React + TypeScript  
+- Vite  
+- TailwindCSS  
+- React Icons  
+- Custom Modal Component  
+- Local assets for UI rendering  
+
+---
+
+## Getting Started
+
+### Install dependencies
+
+```bash
+npm install
+````
+
+### Run development server
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Allow local network access (LAN)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev -- --host
 ```
+
+Visit from another device on the same network:
+
+```
+http://YOUR_LOCAL_IP:5173
+```
+
+---
+
+## Folder Structure
+
+```txt
+src/
+│── components/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── Modal.tsx
+│── pages/
+│   ├── Home.tsx
+│   ├── Apply.tsx
+│── static/
+│   └── assets/
+│       ├── home.png
+│       ├── apply.png
+│       ├── footer.png
+│── App.tsx
+│── main.tsx
+```
+
+---
+
+## How The Form Works
+
+When the user submits the form:
+
+* Data is collected using refs
+* A modal opens with the submitted information
+* Form data structure example:
+
+```json
+{
+  "role": "parent",
+  "name": "John",
+  "surname": "Doe",
+  "email": "john@example.com",
+  "whatsapp": "+1 555-123-4567",
+  "country": "Hong Kong",
+  "schoolName": "HKIS",
+  "graduationYear": "2026"
+}
+```
+
+---
+
+## License
+
+This project is available under the MIT License.
