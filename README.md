@@ -128,9 +128,3 @@ When the user submits the form:
   "graduationYear": "2026"
 }
 ```
-
----
-
-## License
-
-This project is available under the MIT License.
