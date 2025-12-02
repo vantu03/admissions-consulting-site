@@ -31,16 +31,16 @@ function Home({navItems}:{navItems: { name: string; handleScroll: () => void }[]
                         </span>
                     </div>
                     <h1 className="text-5xl font-bold text-white leading-tight mt-4">
-                        <span className="block text-nowrap">Where Our Strategy</span>
-                        <span className="block text-[#f4c63c] text-nowrap">Builds Your Legacy</span>
+                        <span className="block">Where Our Strategy</span>
+                        <span className="block text-amber-300">Builds Your Legacy</span>
                     </h1>
-                    <p className="mx-auto lg:mx-0 mt-6 mb-6 leading-relaxed text-white text-lg">
+                    <p className="mx-auto lg:mx-0 mt-6 mb-6 leading-relaxed text-white text-lg max-w-xl">
                         Amir Rakhimov, trusted by over 200,000 students and parents worldwide, founded the elite U.S. and U.K. college admissions consultancy Quasar & Co. to unite Former Admissions Officers, PhD Researchers, and Ivy League Graduates and Students in delivering high-quality admissions mentorship for the gifted children of visionary families.
                     </p>
                     <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
                         {statistics.map((item) => (
                             <div key={item.name} className="text-center">
-                                <div className="text-2xl font-bold text-[#f4c63c]">{formatNumber(item.value)}</div>
+                                <div className="text-2xl font-bold text-amber-300">{formatNumber(item.value)}</div>
                                 <div className="text-sm text-white/70">{item.name}</div>
                             </div>
                         ))}
@@ -84,11 +84,15 @@ function Home({navItems}:{navItems: { name: string; handleScroll: () => void }[]
                 </div>
                 <div className="relative  m-8">
 
-                    <div className="w-[460px] h-[460px] mx-auto">
-                        <img
-                            src={human}
-                            className="w-full h-full rounded-full object-cover border-[4px] border-[#ebc849] shadow-[0_0_80px_#4669d2]"
-                        />
+                    <div className="relative w-full max-w-md mx-auto p-0">
+                        <div className="absolute -inset-0 rounded-full animate-pulse border-2 border-amber-300 shadow-[0_0_80px_#4669d2] p-0">
+                            
+                        </div>
+
+                            <img
+                                src={human}
+                                className="w-full h-full rounded-full object-cover m-0"
+                            />
                     </div>
                     <div className="absolute -bottom-4 -right-4  rounded-full p-3 bg-[#f5efd9]">
                         <div className="inline-flex items-center rounded-full  px-2.5 py-0.5 transition-colors focus:ring-2 border-transparent bg-[#f5e7b7] text-xs font-semibold">Founder &amp; CEO</div>

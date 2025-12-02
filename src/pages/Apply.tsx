@@ -63,17 +63,17 @@ function Apply() {
                         <LuCalendar className="w-5 h-5 text-white" />
                         <span className="text-[12px] font-bold text-white">Limited Availability</span>
                     </div>
-                    <h2 className="mt-4 font-bold text-5xl text-white">
+                    <h2 className="mt-4 font-bold text-3xl sm:text-4xl lg:text-5xl text-white">
                         Apply For A
                     </h2>
-                    <h2 className="font-bold text-5xl text-amber-300">
+                    <h2 className="font-bold text-3xl sm:text-4xl lg:text-5xl text-amber-300">
                         Parents Are Saying
                     </h2>
                     <p className="mt-4 text-white max-w-4xl text-center text-xl">
                         Apply for a personalized consultation with Our Founder Amir, where we will create and present you with a customized admissions mentorship program for your needs and goals. We will only reach out to you if we believe you are a fit with our services based on the information you provide below. Please note that not all people who filled out the below private consultation form will be contacted.
                     </p>
                 </div>
-                <div className="mt-12 flex justify-center gap-16 flex-wrap">
+                <div className="mt-12 flex justify-center gap-8 flex-wrap">
                     <div className="flex gap-3">
                         <LuUsers className="text-amber-300 w-6 h-6"/>
                         <span className="text-white">200K+ Students & Parents Trust Us</span>

@@ -36,10 +36,10 @@ function Testimonials() {
                         <LuStar className="w-5 h-5" />
                         <span className="text-[12px] font-bold">Client Testimonials</span>
                     </div>
-                    <h2 className="mt-4 font-bold text-5xl">
+                    <h2 className="mt-4 font-bold text-3xl sm:text-4xl lg:text-5xl">
                         What Our Students &
                     </h2>
-                    <h2 className="font-bold text-5xl bg-gradient-to-r from-[#7dd3fc] to-[#c084fc] bg-clip-text text-transparent">
+                    <h2 className="font-bold text-3xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#7dd3fc] to-[#c084fc] bg-clip-text text-transparent">
                         Parents Are Saying
                     </h2>
                     <p className="mt-4 text-[#898787] max-w-2xl text-center text-xl">
@@ -146,10 +146,10 @@ function Testimonials() {
                     <span className="text-[12px] font-bold">Our Services</span>
                 </div>
                 <div className="mb-20">
-                    <h2 className="mt-4 font-bold text-5xl text-center">
+                    <h2 className="mt-4 font-bold text-3xl sm:text-4xl lg:text-5xl text-center">
                         Elite Admissions
                     </h2>
-                    <h2 className="text-center font-bold text-5xl bg-gradient-to-r from-[#7dd3fc] to-[#c084fc] bg-clip-text text-transparent">
+                    <h2 className="text-center font-bold text-3xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#7dd3fc] to-[#c084fc] bg-clip-text text-transparent">
                         Consulting Services
                     </h2>
                     <p className="mt-4 text-[#898787] max-w-2xl text-center text-xl">
