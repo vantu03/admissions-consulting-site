@@ -1,12 +1,13 @@
 
 import bg from '../static/bg-harvard.png'
 import human from '../static/human.png'
-import type { Statistic } from '../types/Statistic'
 import { FaRegStar } from "react-icons/fa6";
 import { LuTrophy, LuUsers } from "react-icons/lu";
 
 
-function Home({statistics, navItems}:{statistics: Statistic[], navItems: { name: string; handleScroll: () => void }[]}) {
+import { statistics, formatNumber } from '../types/Statistic.tsx'
+
+function Home({navItems}:{navItems: { name: string; handleScroll: () => void }[]}) {
 
 
     return (
@@ -20,7 +21,7 @@ function Home({statistics, navItems}:{statistics: Statistic[], navItems: { name:
             }
         }
     >
-        <div className="text-center  bg-[#181829]/80 p-4 pt-20 ">
+        <div className="text-center  bg-[#21242c]/90 p-4 pt-20 ">
             <div className="m-1 max-w-7xl mx-auto lg:text-left lg:flex lg:justify-center">
                 <div className="">
                     <div className="rounded-full font-semibold inline-flex items-center gap-2 p-2 bg-amber-100 text-sm">
@@ -39,7 +40,7 @@ function Home({statistics, navItems}:{statistics: Statistic[], navItems: { name:
                     <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
                         {statistics.map((item) => (
                             <div key={item.name} className="text-center">
-                                <div className="text-2xl font-bold text-[#f4c63c]">{item.value}</div>
+                                <div className="text-2xl font-bold text-[#f4c63c]">{formatNumber(item.value)}</div>
                                 <div className="text-sm text-white/70">{item.name}</div>
                             </div>
                         ))}
@@ -55,7 +56,9 @@ function Home({statistics, navItems}:{statistics: Statistic[], navItems: { name:
                             animate-pulse
                             h-14 rounded-2xl px-12 text-base group
                             transition-all duration-300
-                        ">
+                        "
+                        onClick={navItems[3].handleScroll}
+                        >
                             <span>Apply For A Private Consultation</span>
                             <LuTrophy className="w-5 h-5" />
                         </button>

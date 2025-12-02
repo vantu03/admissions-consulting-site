@@ -1,19 +1,12 @@
 
-import type { School } from '../types/School.tsx'
-import type { Story } from '../types/Story.tsx'
-import { FaRegStar } from "react-icons/fa6";
 import {  LuUsers, LuMapPin, LuTrophy } from "react-icons/lu";
 
-function Results({
-    schools,
-    stories
-}: {
-    schools: School[],
-    stories: Story[]
-}) {
+import { schools } from '../types/School.tsx'
+import { stories } from '../types/Story.tsx'
+function Results() {
     return (
     <article>
-        <div className="text-center bg-[#181829] p-4 pt-20 ">
+        <div className="text-center bg-[#21242c] p-4 pt-20 ">
             <div className="max-w-7xl mx-auto">
                 <div className="rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors hover:bg-gray-300/80 mb-6 inline-flex items-center gap-2 bg-white/10 text-white border-white/20">
                     <LuTrophy />Social Media Success Stories

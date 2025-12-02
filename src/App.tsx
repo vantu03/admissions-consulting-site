@@ -3,10 +3,8 @@ import Footer from './components/Footer.tsx'
 import Home from './pages/Home.tsx'
 import Results from './pages/Results.tsx'
 import Testimonials from './pages/Testimonials.tsx'
+import Apply from './pages/Apply.tsx'
 
-import { statistics } from './types/Statistic.tsx'
-import { schools } from './types/School.tsx'
-import { stories } from './types/Story.tsx'
 import { useRef } from 'react'
 
 function App() {
@@ -28,11 +26,11 @@ function App() {
       <Header navItems={navItems} />
 
       <section ref={homeRef}>
-        <Home statistics={statistics}  navItems={navItems} />
+        <Home navItems={navItems} />
       </section>
 
       <section ref={resultsRef}>
-        <Results schools={schools} stories={stories} />
+        <Results />
       </section>
 
       <section ref={testimonialsRef}>
@@ -40,8 +38,9 @@ function App() {
       </section>
 
       <section ref={applyRef}>
-        <Footer />
+        <Apply />
       </section>
+      <Footer navItems={navItems} />
     </div>
   )
 }
