@@ -1,9 +1,23 @@
 
 import {  LuUsers, LuMapPin, LuTrophy } from "react-icons/lu";
 
-import { schools } from '../types/School.tsx'
-import { stories } from '../types/Story.tsx'
+import { useEffect, useState } from "react";
+import type { Story } from "../types/Story.tsx";
+import { getSchools, getStories } from "../services/ApiService.tsx";
+import type { School } from "../types/School.tsx";
 function Results() {
+
+    const [stories, setStories] = useState<Story[]>([]);
+
+    const [schools, setSchools] = useState<School[]>([]);
+
+    useEffect(()=>{
+        getStories().then(setStories);
+    },[]);
+    useEffect(()=>{
+        getSchools().then(setSchools);
+    },[]);
+
     return (
     <article>
         <div className="text-center bg-[#21242c] p-4 pt-20 ">

@@ -3,8 +3,10 @@ import { LuCalendar, LuUsers, LuTrophy, LuClock, LuPhone, LuMapPin, } from "reac
 import { TbSchool } from "react-icons/tb";
 import { MdOutlineMail } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
-import Modal from "../components/Modal.tsx";
-import type { ModalRef } from "../components/Modal.tsx";
+import { useToast } from "../ToastContainer.tsx";
+import { STATUS } from "../components/Toast.tsx";
+import { fetchApply, type ApiResponse } from "../services/ApiService.tsx";
+
 
 function Apply() {
 
@@ -19,22 +21,23 @@ function Apply() {
 
     const [role, setRole] = useState('');
 
-    const modalRef = useRef<ModalRef>(null);
-    const [modalContent, setModalContent] = useState<{
-        role: string;
-        name: string | undefined;
-        surname: string | undefined;
-        email: string | undefined;
-        whatsapp: string | undefined;
-        country: string | undefined;
-        schoolName: string | undefined;
-        graduationYear: string | undefined;
-    } | null>(null);
+    const toast = useToast();
 
     
 
     const handleSubmit= (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+
+        if (role.length === 0) {
+            toast({
+                id: Date.now(),
+                title: "Please fill in required fields",
+                content: "All fields are required.",
+                status: STATUS.ERROR,
+                time: 3000,
+            });
+            return;
+        }
 
         const formData = {
             role,
@@ -46,9 +49,25 @@ function Apply() {
             schoolName: schoolNameRef.current?.value,
             graduationYear: graduationYearRef.current?.value,
         };
-
-        setModalContent(formData);
-        modalRef.current?.open();
+        fetchApply(formData).then((res:ApiResponse)=> {
+            if (res.status == 'success') {
+                toast({
+                    id: Date.now(),
+                    title: "Success",
+                    content: res.data,
+                    status: STATUS.SUCCESS,
+                    time: 3000,
+                });
+            } else {
+                toast({
+                    id: Date.now(),
+                    title: "Faild",
+                    content: res.data,
+                    status: STATUS.ERROR,
+                    time: 3000,
+                });
+            }
+        });
 
     };
 
@@ -221,19 +240,6 @@ function Apply() {
             </div>
         </div>
 
-
-        {/* Hiển thị dữ liệu submit */}
-        <Modal ref={modalRef} title="Submitted Application Details">
-            <div>
-                <p><b>Role:</b> {modalContent?.role}</p>
-                <p><b>Name:</b> {modalContent?.name} {modalContent?.surname}</p>
-                <p><b>Email:</b> {modalContent?.email}</p>
-                <p><b>Whatsapp:</b> {modalContent?.whatsapp}</p>
-                <p><b>Country:</b> {modalContent?.country}</p>
-                <p><b>School:</b> {modalContent?.schoolName}</p>
-                <p><b>Graduation Year:</b> {modalContent?.graduationYear}</p>
-            </div>
-        </Modal>
 
     </article>
     )

@@ -6,6 +6,7 @@ import Testimonials from './pages/Testimonials.tsx'
 import Apply from './pages/Apply.tsx'
 
 import { useRef } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
   ];
 
   return (
-    <div className="">
+    <>
       <Header navItems={navItems} />
 
       <section ref={homeRef}>
@@ -41,7 +42,9 @@ function App() {
         <Apply />
       </section>
       <Footer navItems={navItems} />
-    </div>
+
+      <Toaster />
+    </>
   )
 }
 

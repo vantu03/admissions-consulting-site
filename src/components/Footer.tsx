@@ -8,30 +8,26 @@ import {LuClock, LuMapPin} from "react-icons/lu";
 import {MdOutlineMail} from "react-icons/md";
 import {formatNumber} from '../types/Statistic';
 import type { ModalRef } from './Modal.tsx'
-import { getPrivacyPolicy, getTermsOfService, getStatistics } from '../services/ApiService.tsx';
+import { getStatistics, getPolicies } from '../services/ApiService.tsx';
 import type{ Statistic } from '../types/Statistic.tsx'
 import { IconMap } from '../services/IconMap.tsx';
+import type {Policie} from '../types/Policie.tsx'
 
 function Footer(
     {navItems}:{navItems: { name: string; handleScroll: () => void }[]}
 ) {
 
-
-    const modalTermsOfServiceRef = useRef<ModalRef>(null);
-    const modalPrivacyPolicyRef = useRef<ModalRef>(null);
-
-    const [privacy, setPrivacy] = useState('');
-    const [terms, setTerms] = useState('');
-
     const [statistics, setStatistics] = useState<Statistic[]>([]);
+    const [policies, setPolicies] = useState<Policie[]>([])
+    
+    const modalPolicie = useRef<ModalRef>(null);
 
     useEffect(()=> {
         getStatistics().then(setStatistics);
     }, []);
 
     useEffect(() => {
-        getTermsOfService().then(setTerms);
-        getPrivacyPolicy().then(setPrivacy);
+        getPolicies().then(setPolicies);
     }, []);
 
     return (
@@ -123,20 +119,21 @@ function Footer(
                 <div className="flex flex-col md:flex-row items-center border-t border-amber-300/20 p-8 text-stone-400 justify-between">
                     <p className="text-lg">© 2025 Quasar & Co. All rights reserved. | Elite Admissions Consultancy</p>
                     <div className="flex gap-4">
-                        <button onClick={() => modalPrivacyPolicyRef.current?.open()}>Privacy Policy</button>
-                        <button onClick={() => modalTermsOfServiceRef.current?.open()}>Terms of Service</button>
+                        {policies.map((policy) => (
+                            <button key={policy.id} onClick={() => {
+                                modalPolicie.current?.setTitle(policy.title);
+                                modalPolicie.current?.setContent(<div dangerouslySetInnerHTML={{ __html: policy.content }} />)
+                                modalPolicie.current?.open();
+                            }}>{policy.title}</button>
+                        ))}
                         <div className="flex items-center gap-1">
                             <LuMapPin /> <span className="text-lg">Uzbekistan</span>
                         </div>
                     </div>
                 </div>
                 
-                <Modal ref={modalPrivacyPolicyRef} title="Privacy Policy">
-                    <div dangerouslySetInnerHTML={{ __html: privacy }} />
-                </Modal>
-                
-                <Modal ref={modalTermsOfServiceRef} title="Terms of Service">
-                    <div dangerouslySetInnerHTML={{ __html: terms }} />
+                <Modal ref={modalPolicie} title="">
+                    <></>
                 </Modal>
             </div>
         </footer>

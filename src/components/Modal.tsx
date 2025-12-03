@@ -4,7 +4,10 @@ import { MdClose } from "react-icons/md";
 export type ModalRef = {
     open: () => void;
     close: () => void;
+    setContent: (content:React.ReactNode) => void;
+    setTitle: (tittle:string) => void;
 };
+
 
 type ModalProps = {
     title: string;
@@ -18,10 +21,18 @@ const Modal = forwardRef<ModalRef, ModalProps>(({ title, children, maxWidth = "m
     const contentRef = useRef<HTMLDivElement | null>(null);
 
     const [isOpen, setIsOpen] = useState(false);
+    const [content, setContent] = useState<React.ReactNode>(children);
+    const [h2, setTitle] = useState<string>(title);
 
     useImperativeHandle(ref, () => ({
         open: () => setIsOpen(true),
         close: () => setIsOpen(false),
+        setContent: (content) => {
+            setContent(content);
+        },
+        setTitle: (title) => {
+            setTitle(title);
+        },
     }));
 
     const handleTouch = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -40,9 +51,9 @@ const Modal = forwardRef<ModalRef, ModalProps>(({ title, children, maxWidth = "m
         >
             <div ref={contentRef} className={`rounded-xl p-6 bg-white w-full ${maxWidth} h-full max-h-[80vh]`} >
                 <div className="mb-6 text-stone-700 w-full h-full relative overflow-y-auto">
-                    <h2 className="text-lg font-semibold leading-none tracking-tight text-black">{title}</h2>
+                    <h2 className="text-lg font-semibold leading-none tracking-tight text-black">{h2}</h2>
                     <div className="mt-4">
-                        {children}
+                        {content}
                     </div>
                     <button
                         className="absolute top-0 right-4 text-gray-500 hover:text-gray-700"

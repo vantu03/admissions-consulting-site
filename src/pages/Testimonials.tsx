@@ -1,30 +1,41 @@
 
-import {  testimonials } from '../types/Testimonial.tsx'
 import type { Testimonial } from '../types/Testimonial.tsx'
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { FaArrowLeft, FaArrowRightLong, FaStar } from "react-icons/fa6";
 import { LuQuote, LuAward, LuUsers, LuStar, LuTrophy } from "react-icons/lu";
-
-import { features } from '../types/Feature.tsx';
+import { useEffect, useState } from 'react';
+import type { Feature } from '../types/Feature.tsx';
+import { getFeatures, getTestimonials } from '../services/ApiService.tsx';
+import { IconMap } from '../services/IconMap.tsx';
 
 function Testimonials() {
 
-  const [sliderRef, slider] = useKeenSlider({
-    loop: true,
-    breakpoints: {
-        "(max-width: 70px)": {
-        slides: { perView: 1, spacing: 10 },
+    const [sliderRef, slider] = useKeenSlider({
+        loop: true,
+        breakpoints: {
+            "(max-width: 770px)": {
+            slides: { perView: 1, spacing: 10 },
+            },
+            "(min-width: 771px) and (max-width: 1024px)": {
+            slides: { perView: 2, spacing: 15 },
+            },
+            "(min-width: 1025px)": {
+            slides: { perView: 3, spacing: 20 },
+            },
         },
-        "(min-width: 771px) and (max-width: 1024px)": {
-        slides: { perView: 2, spacing: 15 },
-        },
-        "(min-width: 1025px)": {
-        slides: { perView: 3, spacing: 20 },
-        },
-    },
-    slides: { perView: 1 },
-  })
+        slides: { perView: 1 },
+    })
+
+    const [features, setFeatures] = useState<Feature[]>([]);
+    const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+
+    useEffect(()=> {
+        getFeatures().then(setFeatures);
+    }, []);
+    useEffect(()=> {
+        getTestimonials().then(setTestimonials);
+    }, []);
 
     return (
     <article>
@@ -97,7 +108,7 @@ function Testimonials() {
                             <FaArrowRightLong className="" />
                         </button>
                         <div ref={sliderRef} className="keen-slider flex items-stretch">
-                            {testimonials.map((review: Testimonial) => (
+                            {testimonials.map((review) => (
                                 <div key={review.id} className="keen-slider__slide flex hover:shadow-2xl hover:shadow-slate-300 ">
                                     <div className="rounded-lg border shadow-sm p-6 bg-white flex justify-between flex-col ">
                                         <div>
@@ -157,19 +168,23 @@ function Testimonials() {
                     </p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {features.map((feature) => (
-                        <div key={feature.id}  className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-2xl hover:shadow-slate-300 transition-all duration-300 group ">
-                            <div className="p-6">
-                                <div className="mb-4">
-                                    <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#7dd3fc] to-[#c084fc] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                        <feature.icon className="w-8 h-8 text-white" />
+                    
+                    {features.map((item) => {
+                        const Icon = IconMap[item.icon];
+                        return (
+                            <div key={item.id}  className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-2xl hover:shadow-slate-300 transition-all duration-300 group ">
+                                <div className="p-6">
+                                    <div className="mb-4">
+                                        <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#7dd3fc] to-[#c084fc] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                            <Icon className="w-8 h-8 text-white" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-amber-300 transition-colors">{item.title}</h3>
+                                        <p className="text-lg text-gray-500 leading-relaxed">{item.description}</p>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-amber-300 transition-colors">{feature.title}</h3>
-                                    <p className="text-lg text-gray-500 leading-relaxed">{feature.description}</p>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
                 
             </div>
